@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Page</title>
+    <link rel="stylesheet" href="static/bookings/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Car Booking Form</h1>
+    <form id="booking-form">
+        <label for="car-type">Car Type:</label>
+        <select id="car-type" name="car_type" required>
+            <option value="sedan">Sedan</option>
+            <option value="suv">SUV</option>
+            <option value="hatchback">Hatchback</option>
+        </select>
+        <br>
+        <label for="pickup-location">Pickup Location:</label>
+        <input type="text" id="pickup-location" name="pickup_location" required>
+        <br>
+        <label for="dropoff-location">Dropoff Location:</label>
+        <input type="text" id="dropoff-location" name="dropoff_location" required>
+        <br>
+        <label for="pickup-date">Pickup Date:</label>
+        <input type="date" id="pickup-date" name="pickup_date" required>
+        <br>
+        <label for="full-name">Full Name:</label>
+        <input type="text" id="full-name" name="full_name" required>
+        <br>
+        <label for="phone-number">Phone Number:</label>
+        <input type="tel" id="phone-number" name="phone_number" required>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="message"></div>
+    <script>
+        $(document).ready(function() {
+            $('#booking-form').on('submit', function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: 'http://127.0.0.1:8000/api/book/',
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        $('#message').html('<p>' + response.message + '</p>');
+                    },
+                    error: function(response) {
+                        $('#message').html('<p>Error: ' + response.responseJSON + '</p>');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
