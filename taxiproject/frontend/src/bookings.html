@@ -35,24 +35,7 @@
         <br>
         <button type="submit">Submit</button>
     </form>
+    <script src="{% static 'bookings/js/bookings.js' %}"></script>
     <div id="message"></div>
-    <script>
-        $(document).ready(function() {
-            $('#booking-form').on('submit', function(event) {
-                event.preventDefault();
-                $.ajax({
-                    url: 'http://127.0.0.1:8000/api/book/',
-                    method: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        $('#message').html('<p>' + response.message + '</p>');
-                    },
-                    error: function(response) {
-                        $('#message').html('<p>Error: ' + response.responseJSON + '</p>');
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>
